@@ -1,6 +1,13 @@
 import dotenv from "dotenv";
 import mysql from "mysql2/promise";
 
+interface DbTypes {
+    host: string;
+    user: string;
+    password: number;
+    database: string;
+}
+
 dotenv.config();
 
 const pool = mysql.createPool({
