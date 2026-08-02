@@ -52,4 +52,4 @@ router.get("/:slug", async (req, res) => {
 
 
 
-export default Router;
+export default router;
