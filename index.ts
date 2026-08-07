@@ -6,7 +6,7 @@ const app = express(); // initialize express app
 
 // enable CORS for requests from a specific url (localhost:3000)
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://rach-dev.vercel.app/"],
     optionsSuccessStatus: 200,
 }))
 
