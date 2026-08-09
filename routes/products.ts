@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import express from "express";
 import pool from "../lib/db.ts";
 
 const router = express.Router();

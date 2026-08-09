@@ -1,4 +1,4 @@
-import { slugify } from "../lib/slugify";
+import { slugify } from "../lib/slugify.ts";
 
 export const jewelleryItems = [ 
      {
@@ -30,7 +30,7 @@ export const jewelleryItems = [
     },
     {
       id: 3,
-      img: "/jewellery/pr4.webp",
+      img: "/jewellery/p4.webp",
       title: "f-e-necklace",
       desc_key: "formal_evening_necklace",
       slug: slugify("formal evening necklace"),
