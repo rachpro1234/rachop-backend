@@ -33,7 +33,7 @@ router.post('/checkout-session', async (req, res) => {
 
         for(const cartItem of items) {
             const [rows]: any = await pool.query(
-                "SELECT * FROM products WHERE slug ?",
+                "SELECT * FROM products WHERE slug = ?",
                  [cartItem.slug]
             );
 
@@ -56,7 +56,7 @@ router.post('/checkout-session', async (req, res) => {
 
        
         const session = await stripe.checkout.sessions.create({
-            ui_mode: "embedded",
+            ui_mode: "embedded_page",
             mode: "payment",
             line_items: lineItems,
             return_url: `${process.env.FRONTEND_URL}/return?session_id={CHECKOUT_SESSION_ID}`

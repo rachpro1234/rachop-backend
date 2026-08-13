@@ -1,27 +1,15 @@
 import express from "express";
 import productsRouter from "./routes/products.ts";
-import checkoutSession from './api/checkout.ts';
+import checkoutSession from './routes/checkout.ts';
 import cors from "cors";
 
-const app = express(); // initialize express app
+const app = express();
 
 // enable CORS for requests from a specific url (localhost:3000)
 app.use(cors({
     origin: ["http://localhost:3000", "https://rach-dev.vercel.app/"],
     optionsSuccessStatus: 200,
 }))
-
-// const allowedOrigins = ["http://localhost:3000", "http://localhost:3000/"];
-
-// app.use((req, res, next) => {
-//     const origin:string = req.headers.origin!;
-
-//     if(allowedOrigins.includes(origin)) {
-//         res.setHeader('Access-Control-Allow-Origin', origin);
-//         res.setHeader('Vary', 'Origin');
-//     }
-//     next();
-// })
 
 const PORT = process.env.PORT || 5004;
 
