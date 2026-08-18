@@ -20,6 +20,7 @@ interface CartItem {
     quantity: number;
 }
 
+// create the stripe checkout session
 router.post('/checkout-session', async (req, res) => {
     try {
 
@@ -67,6 +68,25 @@ router.post('/checkout-session', async (req, res) => {
     } catch (error: any) {
         console.log("checkout creation failed", error.message);
         res.status(500).json({ error: "Failed to create checkout session" });
+    }
+});
+
+// extra route to retrieve the finished checkout session price data
+router.get("/checkout-session/session/:sessionId", async (req, res) => {
+    try {
+        const session = await stripe.checkout.sessions.retrieve(req.params.sessionId);
+        res.json({
+            amountTotal: session.amount_total,
+            currency: session.currency,
+            created: session.created,
+            paymentStatus: session.payment_status,
+            id: session.id 
+        });
+
+        console.log("checkout session data is successfully retrieved", session);
+    } catch (error: any) {
+        console.error("Failed to retrieve session", error.message);
+        res.status(500).json({ error: "failed to retrieve session" });
     }
 });
 
