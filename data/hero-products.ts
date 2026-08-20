@@ -57,7 +57,7 @@ export const heroItems = [
     },
       {
       id: 6,
-      img: "/products/product-6.webp",
+      img: "/products/product-7.webp",
       title: "antique necklace watch",
       desc_key: "necklace watch",
       slug: slugify("antique necklace watch"),

@@ -2,6 +2,8 @@ import express from "express";
 import productsRouter from "./routes/products.ts";
 import checkoutSession from './routes/checkout.ts';
 import cors from "cors";
+import sequelize from "./common/database.ts";
+import defineUser from "./common/models/User.ts";
 
 const app = express();
 
@@ -10,6 +12,8 @@ app.use(cors({
     origin: ["http://localhost:3000", "https://rach-dev.vercel.app/"],
     optionsSuccessStatus: 200,
 }))
+
+const User = defineUser(sequelize);
 
 const PORT = process.env.PORT || 5004;
 
