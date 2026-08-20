@@ -15,6 +15,8 @@ app.use(cors({
 
 const User = defineUser(sequelize);
 
+sequelize.sync();
+
 const PORT = process.env.PORT || 5004;
 
 app.use(express.json()); // parse json request bodies through express

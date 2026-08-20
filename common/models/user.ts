@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 
-export const UserModel = {
+const UserModel = {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     username: { type: DataTypes.STRING, allowNull: false, unique: true },
     email: { type: DataTypes.STRING, allowNull: false, unique: true },
@@ -8,5 +8,6 @@ export const UserModel = {
     firstname: { type: DataTypes.STRING, allowNull: false },
     lastname: { type: DataTypes.STRING, allowNull: false },
 }
-
-module.exports = (sequelize: any) => sequelize.define('user', UserModel);
+export default (sequelize: any) => {
+    return sequelize.define('user', UserModel);
+}
