@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import sequelize from "../common/database.ts";
 import defineUser from "../common/models/User.ts";
+import { register } from "module";
 
 const User = defineUser(sequelize);
 
@@ -12,7 +13,7 @@ const encrypPassword = (password: string) =>
 const generateAccessToken = (username: string, userId: number) => 
     jwt.sign({ username, userId }, 'secret-key', { expiresIn: '24h' });
 
-exports.register = async (req, res) => {
+exports.register = async ({req, res}: any) => {
     try {
         const { username, email, password, firstname, lastname } = req.body;
 
@@ -21,7 +22,7 @@ exports.register = async (req, res) => {
         const user = await User.create({
             username,
             email,
-            password,
+            password: encryptedPassword,
             firstname,
             lastname,
         });
@@ -36,3 +37,5 @@ exports.register = async (req, res) => {
         res.status(500).json({ success: false, error: err });
     }
 }
+
+export default register;
