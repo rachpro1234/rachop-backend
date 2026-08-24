@@ -2,18 +2,43 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import sequelize from "../common/database.ts";
 import defineUser from "../common/models/User.ts";
+import Ajs from 'ajv';
 
 const User = defineUser(sequelize);
 
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+
+if(!JWT_SECRET_KEY) {
+  throw new Error("Missing JWT_SECRET_KEY environment variable");
+}
 
 const encryptPassword = (password: string) => 
     crypto.createHash('sha256').update(password).digest('hex');
 
+
 const generateAccessToken = (username: string, userId: number) => 
-    jwt.sign({ username, userId }, 'secret-key', { expiresIn: '24h' });
+    jwt.sign({ username, userId }, JWT_SECRET_KEY, { expiresIn: '24h' });
+
+// validating inputs before creating users
+const ajv = new Ajs.default();
+
+const schema = {
+  type: 'object',
+  required: ['username', 'email', 'password'],
+  properties: {
+    username: { type: 'string', minLength: 3 },
+    email: { type: 'string', format: 'email' },
+    password: { type: 'string', minLength: 6 },
+  }
+};
+
+const validate = ajv.compile(schema);
+
 
 // register endpoint
 const register = async ({req, res}: any) => {
+    if(!validate(req.body))
+
     try {
         const { username, email, password, firstname, lastname } = req.body;
 
@@ -33,6 +58,7 @@ const register = async ({req, res}: any) => {
             user: { id: user.id, username: user.username, email: user.email },
             token: accessToken
         });
+        console.log(user);
     } catch (err) {
         res.status(500).json({ success: false, error: err });
     }
@@ -50,7 +76,7 @@ const login = async ({req, res}: any) => {
       // find the given username
       const user = await User.find({ where : {username} });
 
-      // check if user exists and the password encrypted
+      // check if user exists || the password encrypted
       if(!user || user.password !== encrypted) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }

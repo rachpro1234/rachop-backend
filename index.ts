@@ -4,6 +4,7 @@ import checkoutSession from './routes/checkout.ts';
 import cors from "cors";
 import sequelize from "./common/database.ts";
 import defineUser from "./common/models/User.ts";
+import authRoutes from './authorisation/routes.ts';
 
 const app = express();
 
@@ -22,6 +23,7 @@ const PORT = process.env.PORT || 5004;
 app.use(express.json()); // parse json request bodies through express
 app.use("/api/products", productsRouter);
 app.use("/api", checkoutSession);
+app.use("/", authRoutes); // Auth Routes
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
