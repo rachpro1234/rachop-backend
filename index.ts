@@ -28,6 +28,16 @@ app.use("/api", checkoutSession);
 app.use("/", authRoutes); // Auth Routes
 app.use('/user', userRoutes); // User Routes
 
+
+app.use((err: any, req: any, res: any, next: any) => {
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        error: 'something went wrong',
+    });
+    next();
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
-})
+});

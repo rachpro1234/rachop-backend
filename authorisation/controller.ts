@@ -3,6 +3,8 @@ import crypto from "crypto";
 import sequelize from "../common/database.ts";
 import defineUser from "../common/models/User.ts";
 import Ajs from 'ajv';
+import type {JSONSchemaType} from 'ajv';
+import addFormats from 'ajv-formats';
 
 const User = defineUser(sequelize);
 
@@ -19,10 +21,17 @@ const encryptPassword = (password: string) =>
 const generateAccessToken = (username: string, userId: number) => 
     jwt.sign({ username, userId }, JWT_SECRET_KEY, { expiresIn: '24h' });
 
+interface SchemaDataTypes {
+  username: string;
+  email: string;
+  password: string | number;
+}
+
 // validating inputs before creating users
 const ajv = new Ajs.default();
+addFormats.default(ajv);
 
-const schema = {
+const schema: JSONSchemaType<SchemaDataTypes> = {
   type: 'object',
   required: ['username', 'email', 'password'],
   properties: {
