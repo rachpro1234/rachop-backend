@@ -49,7 +49,7 @@ const register = async ({req, res}: any) => {
     if(!validate(req.body))
 
     try {
-        const { username, email, password, firstname, lastname } = req.body;
+        const { username, email, password } = req.body;
 
         const encryptedPassword = encryptPassword(password);
 
@@ -57,8 +57,6 @@ const register = async ({req, res}: any) => {
             username,
             email,
             password: encryptedPassword,
-            firstname,
-            lastname,
         });
 
         const accessToken = generateAccessToken(username, user.id);
@@ -76,14 +74,14 @@ const register = async ({req, res}: any) => {
 // login endpoint
 const login = async ({req, res}: any) => {
     try {
-     // retrieve the username, password
-     const { username, password } = req.body;
+     // retrieve the email, password
+     const { email, password } = req.body;
 
       // encrypt the given password
       const encrypted = encryptPassword(password);
 
       // find the given username
-      const user = await User.find({ where : {username} });
+      const user = await User.find({ where : {email} });
 
       // check if user exists || the password encrypted
       if(!user || user.password !== encrypted) {
@@ -91,7 +89,7 @@ const login = async ({req, res}: any) => {
       }
 
       // access the token username and id
-      const token = generateAccessToken(username, user.id);
+      const token = generateAccessToken(email, user.id);
       res.json({ success: true, user, token });
 
       console.log('user successfully logged in');
