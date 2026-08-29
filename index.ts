@@ -25,8 +25,8 @@ const PORT = process.env.PORT || 5004;
 app.use(express.json()); // parse json request bodies through express
 app.use("/api/products", productsRouter);
 app.use("/api", checkoutSession);
-app.use("/", authRoutes); // Auth Routes
-app.use('/user', userRoutes); // User Routes
+app.use("/api/auth", authRoutes); // Auth Routes
+app.use('/api/auth/user', userRoutes); // User Routes
 
 
 app.use((err: any, req: any, res: any, next: any) => {

@@ -45,8 +45,8 @@ const validate = ajv.compile(schema);
 
 
 // register endpoint
-const register = async ({req, res}: any) => {
-    if(!validate(req.body))
+const register = async (req: any, res: any) => {
+    if(!validate(req.body)) return;
 
     try {
         const { username, email, password } = req.body;
@@ -72,7 +72,7 @@ const register = async ({req, res}: any) => {
 }
 
 // login endpoint
-const login = async ({req, res}: any) => {
+const login = async (req: any, res: any) => {
     try {
      // retrieve the email, password
      const { email, password } = req.body;
@@ -81,7 +81,7 @@ const login = async ({req, res}: any) => {
       const encrypted = encryptPassword(password);
 
       // find the given username
-      const user = await User.find({ where : {email} });
+      const user = await User.findByPk({ where : {email} });
 
       // check if user exists || the password encrypted
       if(!user || user.password !== encrypted) {

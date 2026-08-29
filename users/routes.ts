@@ -5,7 +5,7 @@ import check from '../common/middlewares/isAuthenticated.ts';
 const router = express.Router();
 
 
-router.get('/', check, userController.getUser);
-router.get('/all', check, userController.getAllUsers);
+router.get('/auth', check, userController.getUser);
+router.get('/auth/all', check, userController.getAllUsers);
 
 export default router;
