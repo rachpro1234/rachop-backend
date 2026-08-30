@@ -81,7 +81,7 @@ const login = async (req: any, res: any) => {
       const encrypted = encryptPassword(password);
 
       // find the given username
-      const user = await User.findByPk({ where : {email} });
+      const user = await User.findOne({ where : {email} });
 
       // check if user exists || the password encrypted
       if(!user || user.password !== encrypted) {
