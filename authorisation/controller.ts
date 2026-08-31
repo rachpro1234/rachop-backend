@@ -74,14 +74,14 @@ const register = async (req: any, res: any) => {
 // login endpoint
 const login = async (req: any, res: any) => {
     try {
-     // retrieve the email, password
-     const { email, password } = req.body;
+     // retrieve the username, email, password
+     const { username, password } = req.body;
 
       // encrypt the given password
       const encrypted = encryptPassword(password);
 
       // find the given username
-      const user = await User.findOne({ where : {email} });
+      const user = await User.findOne({ where : {username} });
 
       // check if user exists || the password encrypted
       if(!user || user.password !== encrypted) {
@@ -89,7 +89,7 @@ const login = async (req: any, res: any) => {
       }
 
       // access the token username and id
-      const token = generateAccessToken(email, user.id);
+      const token = generateAccessToken(username, user.id);
       res.json({ success: true, user, token });
 
       console.log('user successfully logged in');
@@ -99,5 +99,8 @@ const login = async (req: any, res: any) => {
       res.status(404).json({ error: 'user not found' });
     }
 }
+
+// get logged in user profile for logout purposes
+
 
 export default {register, login};
