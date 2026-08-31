@@ -26,7 +26,7 @@ app.use(express.json()); // parse json request bodies through express
 app.use("/api/products", productsRouter);
 app.use("/api", checkoutSession);
 app.use("/api/auth", authRoutes); // Auth Routes
-app.use('/api/auth/user', userRoutes); // User Routes
+app.use('/api/user', userRoutes); // User Routes
 
 
 app.use((err: any, req: any, res: any, next: any) => {
