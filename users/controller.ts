@@ -11,7 +11,7 @@ const getUser = async (req: any, res: any) => {
 }
 
 const getAllUsers = async (req: any, res: any) => {
-    const users = await User.findAll();
+    const users = await User.findAll(req.user);
     res.json({ sucess: true, data: users });
 }
 
