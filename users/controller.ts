@@ -15,4 +15,13 @@ const getAllUsers = async (req: any, res: any) => {
     res.json({ sucess: true, data: users });
 }
 
-export default { getUser, getAllUsers };
+const profile = (req: any, res: any) => {
+  res.json({
+    User: true,
+    // id: req.user.id,
+    // email: req.user.email,
+    username: req.user.username,
+  })
+}
+
+export default { getUser, getAllUsers, profile };

@@ -18,6 +18,8 @@ app.use(cors({
 
 const User = defineUser(sequelize);
 
+console.log(User);
+
 sequelize.sync();
 
 const PORT = process.env.PORT || 5004;
