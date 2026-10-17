@@ -3,7 +3,7 @@ import pool from "../lib/db.ts";
 
 const router = express.Router();
 
-// GET /api/products - all products (optionally) filtered by category
+// /api/products - all products filtered by category
 router.get("/", async (req, res) => {
    try {
      const { category } = req.query;
@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
    }
 });
 
-// GET /api/products/:slug — one product, for the product detail page
+// /api/products/:slug — one product, for the product detail page
 router.get("/:slug", async (req, res) => {
     try {
      const { slug } = req.params;
