@@ -100,7 +100,5 @@ const login = async (req: any, res: any) => {
     }
 }
 
-// get logged in user profile for logout purposes
-
 
 export default {register, login};

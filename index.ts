@@ -7,6 +7,7 @@ import defineUser from "./common/models/User.ts";
 import authRoutes from './authorisation/routes.ts';
 
 import userRoutes from "./users/routes.ts";
+import testimonialsRouter from "./routes/testimonials.ts";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/api/products", productsRouter);
 app.use("/api", checkoutSession);
 app.use("/api/auth", authRoutes); // Auth Routes
 app.use('/api/user', userRoutes); // User Routes
+app.use("/api/testimonials", testimonialsRouter);
 
 
 app.use((err: any, req: any, res: any, next: any) => {

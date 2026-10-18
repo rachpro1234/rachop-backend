@@ -5,14 +5,13 @@ async function MigrateTestimonial() {
     for(const item of testimonialData) {
         try {
             await pool.query(
-                `INSERT INTO products (category, img, title_key, desc_key, slug, price, prev_price)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                `INSERT INTO testimonials (img, person_name, person_position, person_testimonial)
+                 VALUES (?, ?, ?, ?)`,
                  [
-                    "Hero",
                     item.img,
-                    item.name,
-                    item.position,
-                    item.testimonial
+                    item.person_name,
+                    item.person_position,
+                    item.person_testimonial
                  ]
             );
             // console.log(`INSERTED: ${item.slug}`);
