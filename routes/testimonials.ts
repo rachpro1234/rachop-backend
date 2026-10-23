@@ -6,22 +6,12 @@ const router = express.Router();
 // /api/testimonials
 router.get("/", async (req, res) => {
    try {
-     const { id } = req.query;
-
-     let rows = await pool.query("SELECT * FROM testimonials");
-    //  if(id) {
-    //     [rows] = await pool.query(
-    //         "SELECT * FROM testimonials WHERE id = ?",
-    //         [id]
-    //     );
-    //  } else {
-    //     [rows] = await pool.query("SELECT * FROM testimonials");
-    //  }
+     let rows = await pool.query("SELECT id, img, person_name, person_position, person_testimonial FROM testimonials ORDER BY id");
 
      res.json(rows);
    } catch (err: any) {
      console.log("Failed to fetch products", err.message);
-     res.status(500).json({ error: "Failed to fetch products" });
+     res.status(500).json({ error: "Failed to fetch Testimonials" });
    }
 });
 
