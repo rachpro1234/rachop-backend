@@ -6,7 +6,7 @@ const router = express.Router();
 // /api/testimonials
 router.get("/", async (req, res) => {
    try {
-     let rows = await pool.query("SELECT id, img, person_name, person_position, person_testimonial FROM testimonials ORDER BY id");
+     let [rows] = await pool.query("SELECT id, img, person_name, person_position, person_testimonial FROM testimonials ORDER BY id");
 
      res.json(rows);
    } catch (err: any) {
